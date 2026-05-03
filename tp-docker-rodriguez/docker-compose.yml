@@ -1,0 +1,27 @@
+version: '2.1'
+
+services:
+  db:
+    image: mysql:5.7
+    container_name: taller_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: taller
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin123
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./ejemplos.sql:/docker-entrypoint-initdb.d/ejemplos.sql
+      - db_data:/var/lib/mysql
+
+  adminer:
+    image: adminer:4.7
+    container_name: taller_adminer
+    restart: always
+    ports:
+      - "9090:8080"
+
+volumes:
+  db_data:
